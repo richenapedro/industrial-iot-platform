@@ -1,0 +1,2 @@
+class InvalidMachineStateTransitionError(Exception):
+    pass
