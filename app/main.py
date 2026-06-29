@@ -1,14 +1,14 @@
-import time
-from app.simulator import MachineSimulator
+from app.models.machine import Machine
 
 
 def main():
-    simulator = MachineSimulator(machine_id="g352")
+    machine = Machine(
+        machine_id="g352",
+        manufacturer="GROB",
+        controller="TNC7",
+    )
 
-    while True:
-        machine_state = simulator.get_current_state()
-        print(machine_state.to_dict())
-        time.sleep(2)
+    print(machine)
 
 
 if __name__ == "__main__":
