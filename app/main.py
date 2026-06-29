@@ -1,5 +1,14 @@
+from app.models.machine_state import MachineState
+
+
 def main():
-    print("Industrial IoT Platform started")
+    machine_state = MachineState.create(
+        machine_id="g352",
+        state="AUTOMATIC",
+        source="SIMULATOR",
+    )
+
+    print(machine_state.to_dict())
 
 
 if __name__ == "__main__":
