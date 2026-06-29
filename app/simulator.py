@@ -12,7 +12,7 @@ class MachineSimulator:
     def simulate_state_change(self):
         possible_states = self.service.allowed_transitions.get(
             self.machine.state,
-            ["UNKNOWN"],
+            [],
         )
 
         new_state = random.choice(possible_states)
