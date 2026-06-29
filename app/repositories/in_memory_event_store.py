@@ -10,3 +10,6 @@ class InMemoryEventStore:
 
     def get_all(self) -> list[MachineStateChangedEvent]:
         return self.events
+
+    def get_by_machine_id(self, machine_id: str) -> list[MachineStateChangedEvent]:
+        return [event for event in self.events if event.machine_id == machine_id]

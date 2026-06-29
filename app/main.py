@@ -22,6 +22,8 @@ def main():
 
         if event:
             event_store.save(event)
+            machine_events = event_store.get_by_machine_id(machine.machine_id)
+            print(f"Events for {machine.machine_id}: {len(machine_events)}")
             handler.handle_machine_state_changed(event)
             print(f"Total events stored: {len(event_store.get_all())}")
         else:
