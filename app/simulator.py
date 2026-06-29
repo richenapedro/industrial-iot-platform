@@ -1,12 +1,14 @@
 import random
-from app.models.machine_state import MachineState
+
+from app.models.machine import Machine
+from app.services.machine_service import MachineService
 
 
 class MachineSimulator:
-    def __init__(self, machine_id: str):
-        self.machine_id = machine_id
+    def __init__(self, machine: Machine, service: MachineService):
+        self.machine = machine
+        self.service = service
         self.states = [
-            "OFFLINE",
             "IDLE",
             "AUTOMATIC",
             "MANUAL",
@@ -14,11 +16,11 @@ class MachineSimulator:
             "MAINTENANCE",
         ]
 
-    def get_current_state(self) -> MachineState:
-        state = random.choice(self.states)
+    def simulate_state_change(self):
+        new_state = random.choice(self.states)
 
-        return MachineState.create(
-            machine_id=self.machine_id,
-            state=state,
+        return self.service.update_state(
+            machine=self.machine,
+            new_state=new_state,
             source="SIMULATOR",
         )
