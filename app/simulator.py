@@ -9,17 +9,8 @@ class MachineSimulator:
         self.machine = machine
         self.service = service
 
-        self.allowed_transitions = {
-            "UNKNOWN": ["IDLE"],
-            "IDLE": ["AUTOMATIC", "MANUAL", "MAINTENANCE"],
-            "AUTOMATIC": ["IDLE", "ALARM"],
-            "MANUAL": ["IDLE", "MAINTENANCE"],
-            "ALARM": ["MANUAL"],
-            "MAINTENANCE": ["IDLE"],
-        }
-
     def simulate_state_change(self):
-        possible_states = self.allowed_transitions.get(
+        possible_states = self.service.allowed_transitions.get(
             self.machine.state,
             ["UNKNOWN"],
         )
