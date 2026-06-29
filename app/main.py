@@ -11,17 +11,14 @@ def main():
 
     service = MachineService()
 
-    changed = service.update_state(machine, "AUTOMATIC")
-    print(f"Changed: {changed}")
-    print(machine)
+    event = service.update_state(machine, "AUTOMATIC", source="SIMULATOR")
+    print(event)
 
-    changed = service.update_state(machine, "AUTOMATIC")
-    print(f"Changed: {changed}")
-    print(machine)
+    event = service.update_state(machine, "AUTOMATIC", source="SIMULATOR")
+    print(event)
 
-    changed = service.update_state(machine, "ALARM")
-    print(f"Changed: {changed}")
-    print(machine)
+    event = service.update_state(machine, "ALARM", source="SIMULATOR")
+    print(event)
 
 
 if __name__ == "__main__":
