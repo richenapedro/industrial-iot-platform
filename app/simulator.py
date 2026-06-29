@@ -8,16 +8,23 @@ class MachineSimulator:
     def __init__(self, machine: Machine, service: MachineService):
         self.machine = machine
         self.service = service
-        self.states = [
-            "IDLE",
-            "AUTOMATIC",
-            "MANUAL",
-            "ALARM",
-            "MAINTENANCE",
-        ]
+
+        self.allowed_transitions = {
+            "UNKNOWN": ["IDLE"],
+            "IDLE": ["AUTOMATIC", "MANUAL", "MAINTENANCE"],
+            "AUTOMATIC": ["IDLE", "ALARM"],
+            "MANUAL": ["IDLE", "MAINTENANCE"],
+            "ALARM": ["MANUAL"],
+            "MAINTENANCE": ["IDLE"],
+        }
 
     def simulate_state_change(self):
-        new_state = random.choice(self.states)
+        possible_states = self.allowed_transitions.get(
+            self.machine.state,
+            ["UNKNOWN"],
+        )
+
+        new_state = random.choice(possible_states)
 
         return self.service.update_state(
             machine=self.machine,
