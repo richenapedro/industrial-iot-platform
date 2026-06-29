@@ -5,16 +5,17 @@ from app.models.machine import Machine
 from app.repositories.in_memory_event_store import InMemoryEventStore
 from app.services.machine_service import MachineService
 from app.simulator import MachineSimulator
+from app.config import AppConfig
 
 
 class Application:
     def __init__(self):
+        self.config = AppConfig()
         self.machine = Machine(
-            machine_id="g352",
-            manufacturer="GROB",
-            controller="TNC7",
+            machine_id=self.config.machine_id,
+            manufacturer=self.config.machine_manufacturer,
+            controller=self.config.machine_controller,
         )
-
         self.service = MachineService()
         self.simulator = MachineSimulator(machine=self.machine, service=self.service)
         self.handler = ConsoleEventHandler()
@@ -47,7 +48,7 @@ class Application:
                 else:
                     print("No state change detected")
 
-                time.sleep(2)
+                time.sleep(self.config.simulation_interval_seconds)
 
         except KeyboardInterrupt:
             print("Application stopped by user.")
