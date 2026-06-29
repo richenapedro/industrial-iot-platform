@@ -13,3 +13,14 @@ class InMemoryEventStore:
 
     def get_by_machine_id(self, machine_id: str) -> list[MachineStateChangedEvent]:
         return [event for event in self.events if event.machine_id == machine_id]
+
+    def get_latest_by_machine_id(
+        self,
+        machine_id: str,
+    ) -> MachineStateChangedEvent | None:
+        machine_events = self.get_by_machine_id(machine_id)
+
+        if not machine_events:
+            return None
+
+        return machine_events[-1]
