@@ -1,3 +1,4 @@
+from app.handlers.console_event_handler import ConsoleEventHandler
 from app.models.machine import Machine
 from app.services.machine_service import MachineService
 
@@ -10,24 +11,12 @@ def main():
     )
 
     service = MachineService()
+    handler = ConsoleEventHandler()
 
     event = service.update_state(machine, "AUTOMATIC", source="SIMULATOR")
-    if event:
-        print(event.to_dict())
-    else:
-        print("No state change detected")
 
-    event = service.update_state(machine, "AUTOMATIC", source="SIMULATOR")
     if event:
-        print(event.to_dict())
-    else:
-        print("No state change detected")
-
-    event = service.update_state(machine, "ALARM", source="SIMULATOR")
-    if event:
-        print(event.to_dict())
-    else:
-        print("No state change detected")
+        handler.handle_machine_state_changed(event)
 
 
 if __name__ == "__main__":
