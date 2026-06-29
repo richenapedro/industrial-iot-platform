@@ -1,4 +1,5 @@
 from app.models.machine import Machine
+from app.services.machine_service import MachineService
 
 
 def main():
@@ -7,6 +8,12 @@ def main():
         manufacturer="GROB",
         controller="TNC7",
     )
+
+    service = MachineService()
+
+    print(machine)
+
+    service.update_state(machine, "AUTOMATIC")
 
     print(machine)
 
