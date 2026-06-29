@@ -25,3 +25,12 @@ class MachineStateChangedEvent:
             source=source,
             timestamp=datetime.now(timezone.utc),
         )
+
+    def to_dict(self) -> dict:
+        return {
+            "machine_id": self.machine_id,
+            "previous_state": self.previous_state,
+            "new_state": self.new_state,
+            "source": self.source,
+            "timestamp": self.timestamp.isoformat(),
+        }
